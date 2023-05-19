@@ -5,13 +5,19 @@ import benutzerschnittstelle.Benutzerschnittstelle;
 import fachkonzept.Motor;
 import fachkonzept.Richtung;
 import fachkonzept.Sensor;
+import zustaende.Unten;
+import zustaende.Zustand;
 
-public class Steuerung
+public final class Steuerung
 {
 	private final Benutzerschnittstelle dieBenutzerschnittstelle;
 	private final Motor derMotor;
 	private final int positionOben;
 	private final int positionUnten;
+
+	private Zustand derZustand;
+
+	private final ArrayList<Sensor> derSensor;
 
 	public Steuerung(Benutzerschnittstelle pBenutzerschnittstelle)
 	{
@@ -19,11 +25,11 @@ public class Steuerung
 
 		positionOben = 100;
 		positionUnten = 0;
-		// TO DO: Initialzustand setzen
+		setzeZustand(new Unten(this));
 		int initialePositionTor = 0;
 		derMotor = new Motor(initialePositionTor);
 
-		ArrayList<Sensor> derSensor = new ArrayList<>();
+		derSensor = new ArrayList<>();
 		for (int positionSensor = positionUnten; positionSensor <= positionOben; positionSensor++)
 		{
 			derSensor.add(new Sensor(this, derMotor, positionSensor));
@@ -38,17 +44,17 @@ public class Steuerung
 
 	public void gedruecktAb()
 	{
-		// TO DO: Ereignis an aktuellen Zustand weitergeben
+		derZustand.gedruecktAb();
 	}
 
 	public void gedruecktAuf()
 	{
-		// TO DO: Ereignis an aktuellen Zustand weitergeben
+		derZustand.gedruecktAuf();
 	}
 
 	public void gedruecktStopp()
 	{
-		// TO DO: Ereignis an aktuellen Zustand weitergeben
+		derZustand.gedruecktStopp();
 	}
 	
 	public int liesPositionOben()
@@ -60,8 +66,10 @@ public class Steuerung
 	{
 		return positionUnten;
 	}
-	
-	// TO DO: aktuellen Zustand setzen
+
+	public void setzeZustand(Zustand pZustand) {
+		derZustand = pZustand;
+	}
 	
 	public void starteMotor(Richtung pRichtung)
 	{
