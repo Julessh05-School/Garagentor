@@ -7,18 +7,13 @@ import steuerung.Steuerung;
 
 public class Sensor
 {
-	private Steuerung dieSteuerung;
-	private Motor derMotor;
-	private Timer derTimer;
-	private int positionSensor;
+	private final Steuerung dieSteuerung;
+	private final Motor derMotor;
+	private final int positionSensor;
 	
 	private boolean hatTorkontakt()
 	{
-		if (derMotor.liesPositionTor() == positionSensor)
-		{
-			return true;
-		}
-		return false;
+		return derMotor.liesPositionTor() == positionSensor;
 	}
 	
 	private void sendeSensorsignal()
@@ -31,8 +26,8 @@ public class Sensor
 		dieSteuerung = pSteuerung;
 		derMotor = pMotor;
 		positionSensor = pPositionSensor;
-		
-		derTimer = new Timer();
+
+		Timer derTimer = new Timer();
 		final long delay = 0;
 		final long frequency = 100;
 		derTimer.scheduleAtFixedRate(new TimerTask()

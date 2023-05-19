@@ -8,11 +8,10 @@ import fachkonzept.Sensor;
 
 public class Steuerung
 {
-	private Benutzerschnittstelle dieBenutzerschnittstelle;
-	private Motor derMotor;
-	private ArrayList<Sensor> derSensor;
-	private int positionOben;
-	private int positionUnten;
+	private final Benutzerschnittstelle dieBenutzerschnittstelle;
+	private final Motor derMotor;
+	private final int positionOben;
+	private final int positionUnten;
 
 	public Steuerung(Benutzerschnittstelle pBenutzerschnittstelle)
 	{
@@ -24,7 +23,7 @@ public class Steuerung
 		int initialePositionTor = 0;
 		derMotor = new Motor(initialePositionTor);
 
-		derSensor = new ArrayList<Sensor>();
+		ArrayList<Sensor> derSensor = new ArrayList<>();
 		for (int positionSensor = positionUnten; positionSensor <= positionOben; positionSensor++)
 		{
 			derSensor.add(new Sensor(this, derMotor, positionSensor));

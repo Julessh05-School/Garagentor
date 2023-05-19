@@ -15,14 +15,9 @@ public class Motor
 	
 	private void macheSchritt(Richtung pRichtung)
 	{
-		switch (pRichtung)
-		{
-			case ab:
-				positionTor--;
-				break;
-			case auf:
-				positionTor++;
-				break;
+		switch (pRichtung) {
+			case ab -> positionTor--;
+			case auf -> positionTor++;
 		}
 	}
 
